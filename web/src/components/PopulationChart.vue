@@ -26,12 +26,17 @@ ChartJS.register(
   Filler,
 )
 
-const props = defineProps<{
-  snapshots: PopulationSnapshot[]
-}>()
+const props = withDefaults(
+  defineProps<{
+    snapshots: PopulationSnapshot[]
+    compact?: boolean
+    title?: string
+  }>(),
+  { compact: false, title: 'Population (alle 10 Runden)' },
+)
 
 const chartData = computed(() => ({
-  labels: props.snapshots.map((s) => `Runde ${s.round}`),
+  labels: props.snapshots.map((s) => (props.compact ? String(s.round) : `Runde ${s.round}`)),
   datasets: [
     {
       label: 'Knutt',
@@ -40,6 +45,7 @@ const chartData = computed(() => ({
       backgroundColor: 'rgba(184, 50, 50, 0.12)',
       tension: 0.25,
       fill: true,
+      pointRadius: props.compact ? 1.5 : 3,
     },
     {
       label: 'Herzmuschel',
@@ -48,29 +54,41 @@ const chartData = computed(() => ({
       backgroundColor: 'rgba(201, 162, 39, 0.12)',
       tension: 0.25,
       fill: true,
+      pointRadius: props.compact ? 1.5 : 3,
     },
   ],
 }))
 
-const options: ChartOptions<'line'> = {
+const options = computed<ChartOptions<'line'>>(() => ({
   responsive: true,
   maintainAspectRatio: false,
+  animation: props.compact ? false : undefined,
   plugins: {
-    legend: { position: 'bottom' },
+    legend: { position: 'bottom', display: !props.compact },
     title: {
-      display: true,
-      text: 'Population (alle 10 Runden)',
+      display: !props.compact,
+      text: props.title,
       color: '#3d3228',
       font: { size: 14, weight: 'bold' },
     },
+    tooltip: { enabled: true },
   },
   scales: {
+    x: {
+      ticks: {
+        font: { size: props.compact ? 9 : 11 },
+        autoSkipPadding: 8,
+      },
+    },
     y: {
       beginAtZero: true,
-      ticks: { stepSize: 1 },
+      ticks: {
+        stepSize: 1,
+        font: { size: props.compact ? 9 : 11 },
+      },
     },
   },
-}
+}))
 </script>
 
 <template>
@@ -83,8 +101,9 @@ const options: ChartOptions<'line'> = {
 <style scoped>
 .chart-wrap {
   position: relative;
-  height: 260px;
+  height: 100%;
   width: 100%;
+  min-height: 200px;
   max-width: 640px;
   margin: 0 auto;
 }

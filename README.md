@@ -5,7 +5,7 @@ Räuber–Beute-Spiel (Unterrichtsmaterial adaptiert): **Knutt** jagt **Herzmusc
 - **Regeln:** [docs/spielregeln.md](docs/spielregeln.md) · Original-PDF in `docs/`
 - **Medien:** `media/` (Spielfeld, Sprites)
 - **Web-App:** `web/` (Vue 3, TypeScript, Vite, Pinia, Chart.js, Vitest)
-- **Mobile (Plan):** [docs/FLUTTER_PORTIERUNG.md](docs/FLUTTER_PORTIERUNG.md)
+- **Mobile (Flutter):** [mobile/README.md](mobile/README.md) · Skizze: [docs/FLUTTER_PORTIERUNG.md](docs/FLUTTER_PORTIERUNG.md)
 
 ## Web lokal starten
 
@@ -26,6 +26,15 @@ Tests (Spiellogik):
 
 ```bash
 npm run test
+```
+
+## Mobile (Flutter)
+
+```bash
+cd mobile
+flutter pub get
+flutter run
+flutter test
 ```
 
 ## Spielweise

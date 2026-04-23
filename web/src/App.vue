@@ -7,6 +7,7 @@ import Dice from '@/components/Dice.vue'
 import PlayerPanel from '@/components/PlayerPanel.vue'
 import LogPanel from '@/components/LogPanel.vue'
 import PopulationChart from '@/components/PopulationChart.vue'
+import SimulationPanel from '@/components/SimulationPanel.vue'
 import RuleHelp from '@/components/RuleHelp.vue'
 
 const game = useGameStore()
@@ -45,7 +46,7 @@ const rulesOpen = ref(false)
 
     <main class="layout">
       <div class="col board-col">
-        <Board :board="state.board" />
+        <Board :board="state.board" :highlight="lastDice" />
         <p class="meta">Wurf {{ round }} / 200 · Protokollpunkte: {{ snapshots.length }} / 20</p>
       </div>
 
@@ -76,9 +77,15 @@ const rulesOpen = ref(false)
         </div>
 
         <LogPanel v-show="tab === 'log'" :entries="history" />
-        <PopulationChart v-show="tab === 'chart'" :snapshots="snapshots" />
+        <div v-show="tab === 'chart'" class="live-chart">
+          <PopulationChart :snapshots="snapshots" />
+        </div>
       </aside>
     </main>
+
+    <section class="sim-section">
+      <SimulationPanel />
+    </section>
 
     <RuleHelp :open="rulesOpen" @close="rulesOpen = false" />
   </div>
@@ -218,5 +225,17 @@ const rulesOpen = ref(false)
   max-width: 14rem;
   font-size: 1rem;
   padding: 0.65rem 1rem;
+}
+
+.live-chart {
+  height: 260px;
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 14px;
+  padding: 0.75rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.sim-section {
+  margin-top: 1.5rem;
 }
 </style>

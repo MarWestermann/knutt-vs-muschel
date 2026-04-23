@@ -24,10 +24,10 @@ defineProps<{
 }
 
 .token {
-  width: 78%;
-  height: 78%;
+  width: 88%;
+  height: 88%;
   object-fit: contain;
-  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.25));
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.35));
   animation: pop 0.35s ease-out;
 }
 
