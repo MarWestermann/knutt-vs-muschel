@@ -58,7 +58,7 @@ const headers = [1, 2, 3, 4, 5, 6]
   --frame-text: #5a3a1f;
 
   position: relative;
-  width: min(94vw, 560px);
+  width: min(94vw, calc(560px + 3cm));
   margin: 0 auto;
   padding: 1rem 1rem 0.85rem;
   background: var(--frame-bg);
