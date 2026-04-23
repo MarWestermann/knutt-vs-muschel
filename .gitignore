@@ -54,6 +54,10 @@ mobile/android/**/GeneratedPluginRegistrant.*
 mobile/android/**/*.iml
 mobile/*.lock
 
+# ── Python (CNC-Skripte) ───────────────────────────────────────────────
+**/__pycache__/
+*.py[cod]
+
 # ── Sonstiges ─────────────────────────────────────────────────────────
 *.tmp
 *.bak

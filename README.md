@@ -6,6 +6,7 @@ Räuber–Beute-Spiel (Unterrichtsmaterial adaptiert): **Knutt** jagt **Herzmusc
 - **Medien:** `media/` (Spielfeld, Sprites)
 - **Web-App:** `web/` (Vue 3, TypeScript, Vite, Pinia, Chart.js, Vitest)
 - **Mobile (Flutter):** [mobile/README.md](mobile/README.md) · Skizze: [docs/FLUTTER_PORTIERUNG.md](docs/FLUTTER_PORTIERUNG.md)
+- **CNC (Holz/MDF):** [hardware/cnc/README.md](hardware/cnc/README.md)
 
 ## Web lokal starten
 

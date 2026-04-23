@@ -112,7 +112,7 @@ class _PlayTab extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, c) {
         return SingleChildScrollView(
-          padding: EdgeInsets.fromLTRB(10, 10, 10, 10 + bottomInset + 16),
+          padding: EdgeInsets.fromLTRB(4, 8, 4, 10 + bottomInset + 16),
           child: ConstrainedBox(
             constraints: BoxConstraints(minHeight: c.maxHeight - 20),
             child: Column(

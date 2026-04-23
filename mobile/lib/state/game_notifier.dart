@@ -79,7 +79,7 @@ class GameNotifier extends StateNotifier<GameUiState> {
       lastDice: (x: dx, y: dy),
       rolling: true,
     );
-    await Future<void>.delayed(const Duration(milliseconds: 450));
+    await Future<void>.delayed(const Duration(milliseconds: 900));
     final next = applyMove(state.game, dx, dy, r).state;
     state = state.copyWith(game: next, rolling: false);
   }
