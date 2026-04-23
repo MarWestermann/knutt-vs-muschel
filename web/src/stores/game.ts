@@ -75,7 +75,7 @@ export const useGameStore = defineStore('game', () => {
     const dx = rollDie(r)
     const dy = rollDie(r)
     lastDice.value = { x: dx, y: dy }
-    await new Promise((resolve) => setTimeout(resolve, 450))
+    await new Promise((resolve) => setTimeout(resolve, 900))
     const { state: next } = applyMove(state.value, dx, dy, r)
     state.value = next
     rolling.value = false
