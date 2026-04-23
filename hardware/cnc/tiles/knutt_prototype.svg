@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="25.4mm" height="25.4mm" viewBox="0 0 25.4 25.4">
+  <title>Knutt Prototyp V-Carve</title>
+  <rect x="0" y="0" width="25.4" height="25.4" fill="none" stroke="#888" stroke-width="0.08"/>
+  <!-- vereinfachtes Marienkäfer-Motiv: Körper + Kopf + Punkte -->
+  <g fill="none" stroke="#1a1a1a" stroke-width="0.35" stroke-linecap="round">
+    <ellipse cx="12.7" cy="14.2" rx="6.8" ry="5.6"/>
+    <line x1="12.7" y1="8.6" x2="12.7" y2="11.2"/>
+    <circle cx="10.2" cy="12.4" r="0.55"/>
+    <circle cx="15.2" cy="12.4" r="0.55"/>
+    <circle cx="9.4" cy="15.6" r="0.45"/>
+    <circle cx="12.7" cy="16.4" r="0.45"/>
+    <circle cx="16.0" cy="15.6" r="0.45"/>
+    <circle cx="10.6" cy="17.8" r="0.4"/>
+    <circle cx="14.8" cy="17.8" r="0.4"/>
+  </g>
+</svg>

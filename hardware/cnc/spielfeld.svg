@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="194.0mm" height="194.0mm" viewBox="0 0 194.0 194.0">
+  <title>Spielfeld 6x6 Taschen</title>
+  <rect x="0" y="0" width="194.0" height="194.0" fill="none" stroke="#333" stroke-width="0.2"/>
+  <rect x="4.000" y="164.000" width="26.0" height="26.0" fill="none" stroke="#0a6" stroke-width="0.15"/>
+  <rect x="36.000" y="164.000" width="26.0" height="26.0" fill="none" stroke="#0a6" stroke-width="0.15"/>
+  <rect x="68.000" y="164.000" width="26.0" height="26.0" fill="none" stroke="#0a6" stroke-width="0.15"/>
+  <rect x="100.000" y="164.000" width="26.0" height="26.0" fill="none" stroke="#0a6" stroke-width="0.15"/>
+  <rect x="132.000" y="164.000" width="26.0" height="26.0" fill="none" stroke="#0a6" stroke-width="0.15"/>
+  <rect x="164.000" y="164.000" width="26.0" height="26.0" fill="none" stroke="#0a6" stroke-width="0.15"/>
+  <rect x="4.000" y="132.000" width="26.0" height="26.0" fill="none" stroke="#0a6" stroke-width="0.15"/>
+  <rect x="36.000" y="132.000" width="26.0" height="26.0" fill="none" stroke="#0a6" stroke-width="0.15"/>
+  <rect x="68.000" y="132.000" width="26.0" height="26.0" fill="none" stroke="#0a6" stroke-width="0.15"/>
+  <rect x="100.000" y="132.000" width="26.0" height="26.0" fill="none" stroke="#0a6" stroke-width="0.15"/>
+  <rect x="132.000" y="132.000" width="26.0" height="26.0" fill="none" stroke="#0a6" stroke-width="0.15"/>
+  <rect x="164.000" y="132.000" width="26.0" height="26.0" fill="none" stroke="#0a6" stroke-width="0.15"/>
+  <rect x="4.000" y="100.000" width="26.0" height="26.0" fill="none" stroke="#0a6" stroke-width="0.15"/>
+  <rect x="36.000" y="100.000" width="26.0" height="26.0" fill="none" stroke="#0a6" stroke-width="0.15"/>
+  <rect x="68.000" y="100.000" width="26.0" height="26.0" fill="none" stroke="#0a6" stroke-width="0.15"/>
+  <rect x="100.000" y="100.000" width="26.0" height="26.0" fill="none" stroke="#0a6" stroke-width="0.15"/>
+  <rect x="132.000" y="100.000" width="26.0" height="26.0" fill="none" stroke="#0a6" stroke-width="0.15"/>
+  <rect x="164.000" y="100.000" width="26.0" height="26.0" fill="none" stroke="#0a6" stroke-width="0.15"/>
+  <rect x="4.000" y="68.000" width="26.0" height="26.0" fill="none" stroke="#0a6" stroke-width="0.15"/>
+  <rect x="36.000" y="68.000" width="26.0" height="26.0" fill="none" stroke="#0a6" stroke-width="0.15"/>
+  <rect x="68.000" y="68.000" width="26.0" height="26.0" fill="none" stroke="#0a6" stroke-width="0.15"/>
+  <rect x="100.000" y="68.000" width="26.0" height="26.0" fill="none" stroke="#0a6" stroke-width="0.15"/>
+  <rect x="132.000" y="68.000" width="26.0" height="26.0" fill="none" stroke="#0a6" stroke-width="0.15"/>
+  <rect x="164.000" y="68.000" width="26.0" height="26.0" fill="none" stroke="#0a6" stroke-width="0.15"/>
+  <rect x="4.000" y="36.000" width="26.0" height="26.0" fill="none" stroke="#0a6" stroke-width="0.15"/>
+  <rect x="36.000" y="36.000" width="26.0" height="26.0" fill="none" stroke="#0a6" stroke-width="0.15"/>
+  <rect x="68.000" y="36.000" width="26.0" height="26.0" fill="none" stroke="#0a6" stroke-width="0.15"/>
+  <rect x="100.000" y="36.000" width="26.0" height="26.0" fill="none" stroke="#0a6" stroke-width="0.15"/>
+  <rect x="132.000" y="36.000" width="26.0" height="26.0" fill="none" stroke="#0a6" stroke-width="0.15"/>
+  <rect x="164.000" y="36.000" width="26.0" height="26.0" fill="none" stroke="#0a6" stroke-width="0.15"/>
+  <rect x="4.000" y="4.000" width="26.0" height="26.0" fill="none" stroke="#0a6" stroke-width="0.15"/>
+  <rect x="36.000" y="4.000" width="26.0" height="26.0" fill="none" stroke="#0a6" stroke-width="0.15"/>
+  <rect x="68.000" y="4.000" width="26.0" height="26.0" fill="none" stroke="#0a6" stroke-width="0.15"/>
+  <rect x="100.000" y="4.000" width="26.0" height="26.0" fill="none" stroke="#0a6" stroke-width="0.15"/>
+  <rect x="132.000" y="4.000" width="26.0" height="26.0" fill="none" stroke="#0a6" stroke-width="0.15"/>
+  <rect x="164.000" y="4.000" width="26.0" height="26.0" fill="none" stroke="#0a6" stroke-width="0.15"/>
+</svg>
