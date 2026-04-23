@@ -252,8 +252,8 @@ const ariaY = computed(() =>
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
-  padding: 14%;
-  gap: 4%;
+  padding: 10%;
+  gap: 3%;
   border-radius: 14%;
   background:
     radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0) 55%),
@@ -313,8 +313,6 @@ const ariaY = computed(() =>
   box-shadow:
     inset 0 1px 1px rgba(255, 255, 255, 0.25),
     inset 0 -1px 2px rgba(0, 0, 0, 0.5);
-  width: 75%;
-  height: 75%;
 }
 
 .cube.tint-x .pip {
