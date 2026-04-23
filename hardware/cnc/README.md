@@ -6,6 +6,7 @@ Physische Umsetzung des 6×6-Spiels aus [docs/spielregeln.md](../../docs/spielre
 
 | Pfad | Beschreibung |
 |------|----------------|
+| **[HERSTELLUNG.md](HERSTELLUNG.md)** | **Ausführliche Schrittfolge** Koffer + Plättchen, **Simulation**, **FreeCAD**, **Werkzeugtabellen** |
 | [spec.md](spec.md) | Material, Raster, Plättchenmaße, Taschentiefe, Fräserliste |
 | [layout-buche-mdf.md](layout-buche-mdf.md) | Zuschnitt Buche 800 mm, Nest 36× auf MDF 500×500 |
 | [spielfeld.svg](spielfeld.svg) / [spielfeld.dxf](spielfeld.dxf) | 6×6-Taschen + Außenkontur **194×194 mm** |

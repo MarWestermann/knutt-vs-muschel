@@ -1,0 +1,31 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: knutt-vs-muschel-web
+  namespace: knutt-vs-muschel
+  labels:
+    app.kubernetes.io/name: knutt-vs-muschel
+    app.kubernetes.io/component: web
+  annotations:
+    # TLS-Zertifikat automatisch via cert-manager (ClusterIssuer ggf. anpassen)
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    # Erzwinge HTTPS-Redirect (nginx-Ingress)
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - knutt-vs-muschel.isagtestcloud.intersales.de
+      secretName: knutt-vs-muschel-web-tls
+  rules:
+    - host: knutt-vs-muschel.isagtestcloud.intersales.de
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: knutt-vs-muschel-web
+                port:
+                  name: http
