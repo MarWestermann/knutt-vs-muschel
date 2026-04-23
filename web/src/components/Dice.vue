@@ -265,17 +265,27 @@ const ariaY = computed(() =>
   backface-visibility: hidden;
 }
 
-/* Sanfte Tönung pro Würfel, damit klar ist, welcher zu welcher Achse gehört. */
+/* Tönung pro Würfel passend zu den Achsen-Headern auf dem Spielfeld:
+   X-Achse (Spalte) = pink wie der X-Header, Y-Achse (Zeile) = gelb wie der Y-Header.
+   So erkennt man auf einen Blick, welcher Würfel auf welcher Achse abgetragen wird. */
 .cube.tint-x .face {
   background:
-    radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0) 55%),
-    linear-gradient(150deg, #fff5ec 0%, #f3dcc2 55%, #d6b48a 100%);
+    radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0) 55%),
+    linear-gradient(150deg, #ff7ab2 0%, #ec3f8a 55%, #b8205f 100%);
+  box-shadow:
+    inset 0 0 0 1px rgba(120, 20, 60, 0.5),
+    inset 0 -4px 8px rgba(120, 20, 60, 0.3),
+    inset 0 4px 8px rgba(255, 255, 255, 0.45);
 }
 
 .cube.tint-y .face {
   background:
-    radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0) 55%),
-    linear-gradient(150deg, #f4f9f5 0%, #d8ebd8 55%, #a9c8b0 100%);
+    radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0) 55%),
+    linear-gradient(150deg, #fff39a 0%, #ffd400 55%, #c79c00 100%);
+  box-shadow:
+    inset 0 0 0 1px rgba(140, 105, 0, 0.5),
+    inset 0 -4px 8px rgba(140, 105, 0, 0.3),
+    inset 0 4px 8px rgba(255, 255, 255, 0.6);
 }
 
 .face-1 {
@@ -315,12 +325,30 @@ const ariaY = computed(() =>
     inset 0 -1px 2px rgba(0, 0, 0, 0.5);
 }
 
+/* Auf dem pinken Würfel sorgen weiße Pips für klaren Kontrast,
+   auf dem gelben Würfel bleiben die Pips dunkel. */
 .cube.tint-x .pip {
-  background: radial-gradient(circle at 35% 30%, #6b2a1a 0%, #3a0f08 55%, #170504 100%);
+  background: radial-gradient(
+    circle at 35% 30%,
+    #ffffff 0%,
+    #ffe4ef 55%,
+    #f7c6da 100%
+  );
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.7),
+    inset 0 -1px 2px rgba(120, 20, 60, 0.45);
 }
 
 .cube.tint-y .pip {
-  background: radial-gradient(circle at 35% 30%, #1f4a2a 0%, #0c2614 55%, #051208 100%);
+  background: radial-gradient(
+    circle at 35% 30%,
+    #4a3300 0%,
+    #2a1d00 55%,
+    #120c00 100%
+  );
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.3),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.55);
 }
 
 /* Pip-Position im 3x3-Raster */
