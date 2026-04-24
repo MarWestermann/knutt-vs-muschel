@@ -60,6 +60,7 @@ export function createInitialState(
 
   return {
     board,
+    turn: 0,
     round: 0,
     currentPlayer: starter,
     musselSkipRounds: 0,

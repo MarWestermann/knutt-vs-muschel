@@ -10,9 +10,9 @@ defineProps<{
   <section class="log" aria-label="Spielprotokoll">
     <h2 class="h">Protokoll</h2>
     <ol class="list">
-      <li v-for="e in [...entries].reverse()" :key="e.round + '-' + e.player" class="item">
-        <span class="meta">Runde {{ e.round }} · {{ e.player === 'knutt' ? 'Knutt' : 'Herzmuschel' }}</span>
-        <span class="d">Wurf ({{ e.diceX }}|{{ e.diceY }})</span>
+      <li v-for="e in [...entries].reverse()" :key="e.turn" class="item">
+        <span class="meta">Runde {{ e.round }} · Wurf {{ e.turn }} · {{ e.player === 'knutt' ? 'Knutt' : 'Herzmuschel' }}</span>
+        <span class="d">Würfel ({{ e.diceX }}|{{ e.diceY }})</span>
         <span class="txt">{{ e.result }}</span>
       </li>
     </ol>

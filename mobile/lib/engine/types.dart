@@ -1,4 +1,4 @@
-/// Jäger
+/// Räuber
 enum TileKind { knutt, muschel }
 
 typedef Cell = TileKind?;

@@ -1,8 +1,10 @@
 import { BOARD_SIZE, cloneGameState, pickIndex } from './setup'
 import type { Board, GameState, Rng, TileKind } from './types'
 
-const MAX_ROUNDS = 200
-const SNAPSHOT_INTERVAL = 10
+/** Maximale Anzahl Würfe (jeder Spielzug = 1 Wurf). */
+const MAX_TURNS = 400
+/** Snapshot-Intervall in Würfen (20 = alle 10 Runden, beide Spieler). */
+const SNAPSHOT_INTERVAL_TURNS = 20
 const MAX_SNAPSHOTS = 20
 
 export function countTiles(board: Board, kind: TileKind): number {
@@ -189,10 +191,14 @@ export function applyMove(
     s.musselSkipRounds = 5
   }
 
-  s.round += 1
+  s.turn += 1
+  // Eine Runde umfasst zwei Würfe (jeder Spieler einmal). Beide Spielzüge
+  // einer Runde teilen sich daher dieselbe Rundennummer.
+  s.round = Math.ceil(s.turn / 2)
   const summary = messages.join(' ')
 
   s.history.push({
+    turn: s.turn,
     round: s.round,
     player,
     diceX,
@@ -200,8 +206,9 @@ export function applyMove(
     result: summary,
   })
 
-  if (s.round % SNAPSHOT_INTERVAL === 0 && s.snapshots.length < MAX_SNAPSHOTS) {
+  if (s.turn % SNAPSHOT_INTERVAL_TURNS === 0 && s.snapshots.length < MAX_SNAPSHOTS) {
     s.snapshots.push({
+      turn: s.turn,
       round: s.round,
       knutt: countTiles(board, 'knutt'),
       muschel: countTiles(board, 'muschel'),
@@ -210,12 +217,12 @@ export function applyMove(
 
   s.currentPlayer = player === 'knutt' ? 'muschel' : 'knutt'
 
-  if (s.round >= MAX_ROUNDS || s.snapshots.length >= MAX_SNAPSHOTS) {
+  if (s.turn >= MAX_TURNS || s.snapshots.length >= MAX_SNAPSHOTS) {
     s.gameOver = true
     s.gameOverReason =
       s.snapshots.length >= MAX_SNAPSHOTS
         ? '20 Protokollpunkte erreicht (wie im Original).'
-        : '200 Würfe erreicht.'
+        : '400 Würfe erreicht.'
   }
 
   return { state: s, messages }

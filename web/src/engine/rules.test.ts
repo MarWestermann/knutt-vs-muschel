@@ -32,6 +32,7 @@ describe('applyMove – Knutt', () => {
       '......',
     ])
     state.currentPlayer = 'knutt'
+    state.turn = 0
     state.round = 0
     const res = applyMove(state, 3, 3, rng)
     expect(res.state.board[2][2]).toBe('knutt')
@@ -150,16 +151,53 @@ describe('volles Spielfeld & Snapshots', () => {
     expect(res.state.musselSkipRounds).toBe(5)
   })
 
-  it('nimmt Snapshot alle 10 Runden', () => {
+  it('nimmt Snapshot alle 20 Würfe (= 10 Runden)', () => {
     const rng = createMulberry32(1)
     let s = createInitialState(rng)
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 20; i++) {
       const dx = rollDie(rng)
       const dy = rollDie(rng)
       s = applyMove(s, dx, dy, rng).state
     }
     expect(s.snapshots.length).toBe(1)
+    expect(s.snapshots[0]!.turn).toBe(20)
     expect(s.snapshots[0]!.round).toBe(10)
+  })
+})
+
+describe('Runden- und Wurfzählung', () => {
+  it('eine Runde besteht aus zwei Würfen (beide Spieler haben gewürfelt)', () => {
+    const rng = createMulberry32(2026)
+    let s = createInitialState(rng)
+    expect(s.turn).toBe(0)
+    expect(s.round).toBe(0)
+
+    s = applyMove(s, rollDie(rng), rollDie(rng), rng).state
+    expect(s.turn).toBe(1)
+    expect(s.round).toBe(1)
+
+    s = applyMove(s, rollDie(rng), rollDie(rng), rng).state
+    expect(s.turn).toBe(2)
+    expect(s.round).toBe(1)
+
+    s = applyMove(s, rollDie(rng), rollDie(rng), rng).state
+    expect(s.turn).toBe(3)
+    expect(s.round).toBe(2)
+
+    s = applyMove(s, rollDie(rng), rollDie(rng), rng).state
+    expect(s.turn).toBe(4)
+    expect(s.round).toBe(2)
+  })
+
+  it('beide Würfe einer Runde teilen sich dieselbe Rundennummer im Protokoll', () => {
+    const rng = createMulberry32(4711)
+    let s = createInitialState(rng)
+    s = applyMove(s, rollDie(rng), rollDie(rng), rng).state
+    s = applyMove(s, rollDie(rng), rollDie(rng), rng).state
+    expect(s.history).toHaveLength(2)
+    expect(s.history[0]!.round).toBe(1)
+    expect(s.history[1]!.round).toBe(1)
+    expect(s.history[0]!.player).not.toBe(s.history[1]!.player)
   })
 })
 
@@ -168,7 +206,7 @@ describe('Spielende', () => {
     const rng = createMulberry32(77)
     let s = createInitialState(rng)
     let guard = 0
-    while (!s.gameOver && guard++ < 500) {
+    while (!s.gameOver && guard++ < 1000) {
       s = applyMove(s, rollDie(rng), rollDie(rng), rng).state
     }
     expect(s.gameOver).toBe(true)

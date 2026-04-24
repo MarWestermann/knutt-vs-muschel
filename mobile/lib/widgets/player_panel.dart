@@ -47,7 +47,7 @@ class PlayerPanel extends StatelessWidget {
             Text(
               gameOver
                   ? 'Spiel beendet'
-                  : 'Am Zug: ${current == TileKind.knutt ? 'Knutt (Jäger)' : 'Herzmuschel (Beute)'}',
+                  : 'Am Zug: ${current == TileKind.knutt ? 'Knutt (Räuber)' : 'Herzmuschel (Beute)'}',
               style: const TextStyle(fontWeight: FontWeight.w600),
             ),
             if (skipRounds > 0)

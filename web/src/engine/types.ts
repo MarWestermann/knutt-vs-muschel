@@ -1,4 +1,4 @@
-/** Jäger */
+/** Räuber */
 export type Knutt = 'knutt'
 /** Beute */
 export type Muschel = 'muschel'
@@ -11,6 +11,9 @@ export type Cell = TileKind | null
 export type Board = Cell[][]
 
 export interface RoundLog {
+  /** Laufende Wurfnummer (1 pro Spielzug) */
+  turn: number
+  /** Rundennummer, zu der dieser Wurf gehört (1 Runde = beide Spieler haben gewürfelt) */
   round: number
   player: TileKind
   diceX: number
@@ -19,6 +22,9 @@ export interface RoundLog {
 }
 
 export interface PopulationSnapshot {
+  /** Wurfnummer, an der der Snapshot genommen wurde */
+  turn: number
+  /** Rundennummer zum Zeitpunkt des Snapshots */
   round: number
   knutt: number
   muschel: number
@@ -26,7 +32,9 @@ export interface PopulationSnapshot {
 
 export interface GameState {
   board: Board
-  /** Abgeschlossene Würfe (1 pro Spielzug) */
+  /** Anzahl bereits ausgeführter Würfe (1 pro Spielzug) */
+  turn: number
+  /** Anzahl abgeschlossener Runden (1 Runde = beide Spieler haben einmal gewürfelt) */
   round: number
   currentPlayer: TileKind
   /** Pausenzähler für Herzmuschel-Vermehrung bei vollem Feld */

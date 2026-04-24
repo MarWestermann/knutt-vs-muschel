@@ -1,7 +1,7 @@
 # Knutt vs. Herzmuschel – Spielregeln
 
 Digitale Adaption des Unterrichtsspiels „Marienkäfer und Blattläuse“ (Räuber–Beute).  
-**Jäger:** Knutt · **Beute:** Herzmuschel
+**Räuber:** Knutt · **Beute:** Herzmuschel
 
 ## Material
 
@@ -18,7 +18,7 @@ Digitale Adaption des Unterrichtsspiels „Marienkäfer und Blattläuse“ (Räu
 
 Die Spieler:innen würfeln abwechselnd. Aus den Würfeln ergibt sich das Zielfeld \((x, y)\) mit \(x, y \in \{1,\ldots,6\}\).
 
-### Knutt (Jäger) ist am Zug
+### Knutt (Räuber) ist am Zug
 
 | Zielfeld enthält | Wirkung |
 |------------------|---------|
@@ -42,7 +42,7 @@ Ist eine der beiden Arten **vor** der Einwanderungsregel nicht mehr auf dem Feld
 
 ## Protokoll (wie im Original)
 
-Nach jeweils **10 Würfelrunden** werden die Anzahlen der Knutt- und Herzmuschel-Plättchen notiert – insgesamt **20 Mal** (also bis ca. **200** Würfe).
+Nach jeweils **10 Würfelrunden** werden die Anzahlen der Knutt- und Herzmuschel-Plättchen notiert – insgesamt **20 Mal** (also bis ca. **400** Würfe).
 
 ## Hinweise zur digitalen Umsetzung
 

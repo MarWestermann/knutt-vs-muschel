@@ -29,7 +29,7 @@ class RulesSheet {
                 ),
                 const SizedBox(height: 10),
                 const Text(
-                  'Knutt (Jäger): frisst Herzmuschel auf dem Ziel und vermehrt sich (zweites Knutt auf '
+                  'Knutt (Räuber): frisst Herzmuschel auf dem Ziel und vermehrt sich (zweites Knutt auf '
                   'freies Nachbarfeld). Leeres Feld oder Knutt auf dem Ziel: ein Knutt verhungert.',
                 ),
                 const SizedBox(height: 10),

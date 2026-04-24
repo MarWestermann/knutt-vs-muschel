@@ -18,6 +18,7 @@ const {
   knuttCount,
   muschelCount,
   currentPlayer,
+  turn,
   round,
   gameOver,
   gameOverReason,
@@ -40,6 +41,7 @@ const rulesOpen = ref(false)
       </div>
       <div class="actions">
         <button type="button" class="btn secondary" @click="rulesOpen = true">Regeln</button>
+        <button type="button" class="btn secondary" @click="game.loadPresetScenario()">Vorgabe-Szenario</button>
         <button type="button" class="btn" @click="game.newGame()">Neues Spiel</button>
       </div>
     </header>
@@ -47,7 +49,7 @@ const rulesOpen = ref(false)
     <main class="layout">
       <div class="col board-col">
         <Board :board="state.board" :highlight="lastDice" />
-        <p class="meta">Wurf {{ round }} / 200 · Protokollpunkte: {{ snapshots.length }} / 20</p>
+        <p class="meta">Wurf {{ turn }} / 400 · Runde {{ round }} / 200 · Protokollpunkte: {{ snapshots.length }} / 20</p>
       </div>
 
       <aside class="col side">

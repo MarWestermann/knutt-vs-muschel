@@ -1,17 +1,40 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import { applyMove, countTiles, rollDie } from '@/engine/rules'
-import { createInitialState, createMulberry32 } from '@/engine/setup'
+import {
+  BOARD_SIZE,
+  createInitialState,
+  createMulberry32,
+  emptyBoard,
+  shuffleInPlace,
+} from '@/engine/setup'
 import type { GameState, PopulationSnapshot, TileKind } from '@/engine/types'
 
 export interface SimulationRun {
   id: number
   seed: number
   snapshots: PopulationSnapshot[]
+  /** Anzahl Würfe (jeder Spielzug = 1 Wurf) */
+  turns: number
+  /** Anzahl abgeschlossener Runden (jede Runde = beide Spieler haben gewürfelt) */
   rounds: number
   finalKnutt: number
   finalMuschel: number
 }
+
+/** Start + 9 Protokollpunkte (je 20 Würfe / 10 Runden) für „Vorgabe-Szenario“. */
+const PRESET_SNAPSHOTS: PopulationSnapshot[] = [
+  { turn: 0, round: 0, knutt: 17, muschel: 18 },
+  { turn: 20, round: 10, knutt: 19, muschel: 15 },
+  { turn: 40, round: 20, knutt: 18, muschel: 14 },
+  { turn: 60, round: 30, knutt: 15, muschel: 17 },
+  { turn: 80, round: 40, knutt: 16, muschel: 18 },
+  { turn: 100, round: 50, knutt: 18, muschel: 16 },
+  { turn: 120, round: 60, knutt: 16, muschel: 15 },
+  { turn: 140, round: 70, knutt: 14, muschel: 17 },
+  { turn: 160, round: 80, knutt: 16, muschel: 18 },
+  { turn: 180, round: 90, knutt: 18, muschel: 15 },
+]
 
 export const useGameStore = defineStore('game', () => {
   const rngSeed = ref(Math.floor(Math.random() * 0xffffffff))
@@ -49,6 +72,7 @@ export const useGameStore = defineStore('game', () => {
   const knuttCount = computed(() => countTiles(state.value.board, 'knutt'))
   const muschelCount = computed(() => countTiles(state.value.board, 'muschel'))
   const currentPlayer = computed(() => state.value.currentPlayer)
+  const turn = computed(() => state.value.turn)
   const round = computed(() => state.value.round)
   const gameOver = computed(() => state.value.gameOver)
   const gameOverReason = computed(() => state.value.gameOverReason)
@@ -63,6 +87,40 @@ export const useGameStore = defineStore('game', () => {
     rollSeq.value = 0
     const r = createMulberry32(rngSeed.value)
     state.value = createInitialState(r)
+    lastDice.value = null
+    rolling.value = false
+  }
+
+  /** Nach 9 Protokollpunkten: Board 15 Muschel / 18 Knutt zufällig, Diagramm mit vorgegebenen Werten. */
+  function loadPresetScenario() {
+    rngSeed.value = Math.floor(Math.random() * 0xffffffff)
+    rollSeq.value = 0
+    const r = createMulberry32(rngSeed.value)
+    const board = emptyBoard()
+    const indices = Array.from({ length: BOARD_SIZE * BOARD_SIZE }, (_, i) => i)
+    shuffleInPlace(indices, r)
+    for (let i = 0; i < 15; i++) {
+      const idx = indices[i]!
+      const row = Math.floor(idx / BOARD_SIZE)
+      const col = idx % BOARD_SIZE
+      board[row][col] = 'muschel'
+    }
+    for (let i = 15; i < 33; i++) {
+      const idx = indices[i]!
+      const row = Math.floor(idx / BOARD_SIZE)
+      const col = idx % BOARD_SIZE
+      board[row][col] = 'knutt'
+    }
+    state.value = {
+      board,
+      turn: 180,
+      round: 90,
+      currentPlayer: 'knutt',
+      musselSkipRounds: 0,
+      history: [],
+      snapshots: PRESET_SNAPSHOTS.map((s) => ({ ...s })),
+      gameOver: false,
+    }
     lastDice.value = null
     rolling.value = false
   }
@@ -82,7 +140,7 @@ export const useGameStore = defineStore('game', () => {
   }
 
   function labelForPlayer(p: TileKind): string {
-    return p === 'knutt' ? 'Knutt (Jäger)' : 'Herzmuschel (Beute)'
+    return p === 'knutt' ? 'Knutt (Räuber)' : 'Herzmuschel (Beute)'
   }
 
   async function runSimulations(count: number) {
@@ -100,6 +158,7 @@ export const useGameStore = defineStore('game', () => {
         id: i + 1,
         seed,
         snapshots: finalState.snapshots,
+        turns: finalState.turn,
         rounds: finalState.round,
         finalKnutt: countTiles(finalState.board, 'knutt'),
         finalMuschel: countTiles(finalState.board, 'muschel'),
@@ -125,6 +184,7 @@ export const useGameStore = defineStore('game', () => {
     knuttCount,
     muschelCount,
     currentPlayer,
+    turn,
     round,
     gameOver,
     gameOverReason,
@@ -136,6 +196,7 @@ export const useGameStore = defineStore('game', () => {
     simulating,
     simulationProgress,
     newGame,
+    loadPresetScenario,
     rollDice,
     labelForPlayer,
     runSimulations,

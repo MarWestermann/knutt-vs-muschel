@@ -94,7 +94,7 @@ const options = computed<ChartOptions<'line'>>(() => ({
 <template>
   <div class="chart-wrap">
     <Line v-if="snapshots.length > 0" :data="chartData" :options="options" />
-    <p v-else class="placeholder">Nach 10 Würfen erscheint hier das Diagramm.</p>
+    <p v-else class="placeholder">Nach 20 Würfen (10 Runden) erscheint hier das Diagramm.</p>
   </div>
 </template>
 

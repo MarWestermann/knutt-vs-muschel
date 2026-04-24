@@ -21,13 +21,13 @@ const emit = defineEmits<{
             Zwei Spieler:innen wechseln sich ab. Der erste Würfel bestimmt die <strong>Spalte (x)</strong>, der zweite die
             <strong>Zeile (y)</strong> (jeweils 1–6).
           </p>
-          <p><strong>Knutt (Jäger):</strong> frisst Herzmuschel auf dem Ziel und vermehrt sich (zweites Knutt auf freies
+          <p><strong>Knutt (Räuber):</strong> frisst Herzmuschel auf dem Ziel und vermehrt sich (zweites Knutt auf freies
             Nachbarfeld). Leeres Feld oder Knutt auf dem Ziel: ein Knutt verhungert.</p>
           <p><strong>Herzmuschel (Beute):</strong> vermehrt sich auf leeres Ziel oder Nachbarfeld. Auf Knutt: wird gefressen,
             neues Knutt auf Nachbarfeld.</p>
           <p><strong>Volles Spielfeld:</strong> Herzmuschel-Vermehrung ist 5 Züge lang eingeschränkt (Pause-Zähler).</p>
           <p><strong>Einwanderung:</strong> Ist eine Art ausgestorben, erscheint wieder ein Plättchen auf einem freien Feld.</p>
-          <p><strong>Ende:</strong> Nach 20 Protokollpunkten (je alle 10 Runden) oder spätestens nach 200 Würfen.</p>
+          <p><strong>Ende:</strong> Nach 20 Protokollpunkten (je alle 10 Runden) oder spätestens nach 400 Würfen.</p>
           <p class="more">Ausführliche Fassung: <code>docs/spielregeln.md</code> im Repository.</p>
         </div>
       </div>

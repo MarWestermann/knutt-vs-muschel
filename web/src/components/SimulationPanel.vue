@@ -25,7 +25,7 @@ async function start() {
     <header class="sim-head">
       <div>
         <h2 class="h">Simulation</h2>
-        <p class="sub">Spiele komplette Spiele (bis 200 Würfe / 20 Protokollpunkte) automatisch durch.</p>
+        <p class="sub">Spiele komplette Spiele (bis 400 Würfe / 20 Protokollpunkte) automatisch durch.</p>
       </div>
       <div class="controls">
         <label class="field">
@@ -64,7 +64,7 @@ async function start() {
         <header class="card-head">
           <h3>Spiel {{ run.id }}</h3>
           <span class="meta">
-            {{ run.rounds }} Würfe · Ende: Knutt {{ run.finalKnutt }} / Muschel {{ run.finalMuschel }}
+            {{ run.turns }} Würfe ({{ run.rounds }} Runden) · Ende: Knutt {{ run.finalKnutt }} / Muschel {{ run.finalMuschel }}
           </span>
         </header>
         <div class="chart-slot">
