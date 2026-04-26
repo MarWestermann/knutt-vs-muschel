@@ -4,7 +4,7 @@
 
 - **Nur Brett**: **200 × 200 mm** Außenmaß, **kein** Koffer/Deckel.
 - **6×6 Mulden** für Glaskiesel **Ø ca. 28 mm** (Mulde etwas größer).
-- **Koordinaten 1–6** oben (Spalten **x**) und links (Zeilen **y**), **Ecke oben-links leer** – wie Web/UI und [web/public/assets/spielfeld.png](../web/public/assets/spielfeld.png).
+- **Koordinaten 1–6** oben (Spalten **x**) und links (Zeilen **y**), **Ecke oben-links leer** – gemäß [media/spielfeld-original.png](../media/spielfeld-original.png).
 
 ## Rohling
 
@@ -21,7 +21,8 @@ Verhältnis wie [web/src/components/Board.vue](../web/src/components/Board.vue):
 | Verhältnis Kopf / Spielfeldzelle | **0,55** (`h = 0,55 × c`) |
 | Spielfeldzelle `c` | **≈ 29,435 mm** (Skriptausgabe) |
 | Kopfband `h` | **≈ 16,189 mm** |
-| Mulde (Kreis) Durchmesser `MULDE_D` | **29,0 mm** (Spiel im 28-mm-Kiesel) |
+| Mulde (quadratisch, gerundete Ecken) | **29,0 × 29,0 mm** |
+| Eckenradius Mulde `MULDE_CORNER_R` | **4,8 mm** |
 | Muldentiefe (Richtwert) | **2,5–4,0 mm** bei **18 mm** Brettdicke; Restboden **≥ ca. 12 mm** |
 
 Die Zahlen `c` und `h` leiten sich aus `h + 6·c + 6·GAP = 200` und `h = 0,55·c` ab. Änderungen nur im Skript [scripts/generate_board.py](scripts/generate_board.py) und hier dokumentieren.
@@ -30,7 +31,7 @@ Die Zahlen `c` und `h` leiten sich aus `h + 6·c + 6·GAP = 200` und `h = 0,55·
 
 | Aufgabe | Werkzeug |
 |---------|----------|
-| Mulden (Kreis-Pocket, groß) | **6–8 mm** HM-Torus/Schaft; CAM mit Spiral oder Schichten; Innenradius ≥ Werkzeugradius |
+| Mulden (quadratische Tasche mit Rundungen) | **6–8 mm** HM-Torus/Schaft; CAM als Pocket/2.5D, Eckenradius im Pfad erhalten |
 | Mulde „schüsselförmig“ (optional) | **Kugelfräser** – separates CAM, flacher |
 | Zahlen 1–6 | **Gravierstichel** / V-Bit sehr flach; in CAM **Gravur** oder **einlinige** Pfade |
 

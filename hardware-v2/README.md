@@ -5,6 +5,7 @@ Fertigung nur des **Spielbretts** (Mulden + Koordinatengravur). **Kein** Koffer,
 - **Spezifikation:** [spec.md](spec.md)
 - **Schritte / Simulation:** [HERSTELLUNG.md](HERSTELLUNG.md)
 - **Vektoren:** [board.svg](board.svg), [board.dxf](board.dxf) (regenerierbar)
+- **3D-Modell:** [board.scad](board.scad) (OpenSCAD, parametrisch)
 - **Optional G-Code-Mulden:** [gcode/README.md](gcode/README.md)
 
 ## Regenerieren
@@ -13,6 +14,7 @@ Fertigung nur des **Spielbretts** (Mulden + Koordinatengravur). **Kein** Koffer,
 cd hardware-v2
 python3 scripts/generate_board.py
 python3 scripts/generate_board_mulden_ngc.py
+python3 scripts/generate_board_numbers_ngc.py
 ```
 
 ## Legacy (v1)

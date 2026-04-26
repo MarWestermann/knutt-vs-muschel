@@ -16,14 +16,15 @@ Ergebnis: [board.svg](board.svg), [board.dxf](board.dxf). Maße und Parameter: [
 
 ## 3. CAM vorbereiten
 
-### Mulden (Kreise Ø 29 mm, Tiefe siehe spec)
+### Mulden (Quadrate 29×29 mm mit gerundeten Ecken, Tiefe siehe spec)
 
-- **FreeCAD Path**, **Sheetcam**, **Fusion** o. Ä.: `board.dxf` importieren, **nur die Kreise** (Layer ggf. trennen) als **Pocket** / **Inselräumung** mit **6–8 mm** Fräser programmieren (Spiral, Schichten).
-- Alternativ: generiertes **[gcode/mulden_pockets.ngc](gcode/mulden_pockets.ngc)** in **CAMotics** / **LinuxCNC** prüfen (nur Vorlage, Vorschübe anpassen).
+- **FreeCAD Path**, **Sheetcam**, **Fusion** o. Ä.: `board.dxf` importieren, **nur die Muldenkonturen** (gerundete Quadrate) als **Pocket** / **Inselräumung** mit **6–8 mm** Fräser programmieren.
+- Alternativ: generiertes **[gcode/mulden_pockets.ngc](gcode/mulden_pockets.ngc)** in **CAMotics** / **LinuxCNC** prüfen (See-Muldenprofil: außen flacher, innen tiefer; Vorschübe anpassen).
 
-### Koordinaten (1–6)
+### Koordinaten (1–6 oben + links)
 
-- SVG enthält **`<text>`**. Viele Postprozessor brauchen **Pfade**:
+- Standardweg: `gcode/numbers_engrave.ngc` aus dem Script nutzen (einliniger Segment-Font).
+- Alternative: SVG enthält **`<text>`**. Viele Postprozessor brauchen **Pfade**:
   - **Inkscape**: Text markieren → **Pfad → Objekt in Pfad umwandeln** → als DXF/SVG erneut exportieren **oder** in CAM nur die Pfade-Gruppe importieren.
 - Werkzeug: **Gravierstichel** / schmales **V-Bit**, **sehr flache** Zustellung, Linien **einmal** ohne Überfräsung probieren.
 

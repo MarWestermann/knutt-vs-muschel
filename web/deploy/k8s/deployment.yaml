@@ -27,13 +27,16 @@ spec:
       automountServiceAccountToken: false
       securityContext:
         runAsNonRoot: true
+        runAsUser: 101
+        runAsGroup: 101
+        fsGroup: 101
         seccompProfile:
           type: RuntimeDefault
       containers:
         - name: web
           # Image-Tag wird im Deploy-Schritt überschrieben (z. B. via `kustomize edit set image`).
-          image: ghcr.io/intersales/knutt-vs-muschel-web:latest
-          imagePullPolicy: IfNotPresent
+          image: docker.io/marwestermann/knutt-vs-muschel:latest
+          imagePullPolicy: Always
           ports:
             - name: http
               containerPort: 8080

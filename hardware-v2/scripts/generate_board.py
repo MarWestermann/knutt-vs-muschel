@@ -5,6 +5,7 @@ Schreibt board.svg (Y nach unten) und board.dxf (Y nach oben, CNC-üblich).
 """
 from __future__ import annotations
 
+import math
 from pathlib import Path
 
 # --- Parameter (synchron mit spec.md) ---
@@ -14,8 +15,8 @@ HEADER_RATIO = 0.55  # h = HEADER_RATIO * c
 # h + 6*c + 6*GAP = OUT  und  h = HEADER_RATIO * c  ->  c = (OUT - 6*GAP) / (6 + HEADER_RATIO)
 _c = (OUT - 6.0 * GAP) / (6.0 + HEADER_RATIO)
 _h = HEADER_RATIO * _c
-MULDE_D = 29.0
-MULDE_R = MULDE_D / 2.0
+MULDE_SIDE = 29.0
+MULDE_CORNER_R = 4.8
 
 
 def layout() -> tuple[float, float, float, float]:
@@ -24,8 +25,8 @@ def layout() -> tuple[float, float, float, float]:
 
 
 def play_cell_left(ix: int, c: float, h: float, gap: float) -> float:
-    """Linke Kante Spielfeld-Spalte ix=0..5 (x=1..6)."""
-    return h + gap + ix * (c + gap)
+    """Linke Kante Spielfeld-Spalte ix=0..5 (x=1..6), Header liegt rechts."""
+    return ix * (c + gap)
 
 
 def play_row_bottom(iy: int, c: float, gap: float) -> float:
@@ -54,6 +55,35 @@ def center_y_header(iy: int, c: float, h: float, gap: float) -> tuple[float, flo
     return x, y
 
 
+def rounded_rect_points(
+    cx: float, cy: float, width: float, height: float, radius: float, arc_steps: int = 6
+) -> list[tuple[float, float]]:
+    """Geschlossene Konturpunkte (CCW) eines Rechtecks mit gerundeten Ecken."""
+    hw = width / 2.0
+    hh = height / 2.0
+    r = max(0.0, min(radius, hw, hh))
+    if r <= 1e-6:
+        return [
+            (cx + hw, cy - hh),
+            (cx + hw, cy + hh),
+            (cx - hw, cy + hh),
+            (cx - hw, cy - hh),
+        ]
+
+    pts: list[tuple[float, float]] = []
+    corners = [
+        (cx + hw - r, cy + hh - r, 0.0, math.pi / 2.0),  # oben rechts
+        (cx - hw + r, cy + hh - r, math.pi / 2.0, math.pi),  # oben links
+        (cx - hw + r, cy - hh + r, math.pi, 3.0 * math.pi / 2.0),  # unten links
+        (cx + hw - r, cy - hh + r, 3.0 * math.pi / 2.0, 2.0 * math.pi),  # unten rechts
+    ]
+    for ccx, ccy, a0, a1 in corners:
+        for i in range(arc_steps + 1):
+            a = a0 + (a1 - a0) * (i / arc_steps)
+            pts.append((ccx + r * math.cos(a), ccy + r * math.sin(a)))
+    return pts
+
+
 def write_svg(path: Path, c: float, h: float, gap: float, out: float) -> None:
     """SVG: Y nach unten."""
     lines: list[str] = [
@@ -69,7 +99,12 @@ def write_svg(path: Path, c: float, h: float, gap: float, out: float) -> None:
         for ix in range(6):
             xc, y_up = centers_play(ix, iy, c, h, gap)
             y_svg = out - y_up
-            lines.append(f'    <circle cx="{xc:.4f}" cy="{y_svg:.4f}" r="{MULDE_R:.4f}"/>')
+            x0 = xc - MULDE_SIDE / 2.0
+            y0 = y_svg - MULDE_SIDE / 2.0
+            lines.append(
+                f'    <rect x="{x0:.4f}" y="{y0:.4f}" width="{MULDE_SIDE:.4f}" '
+                f'height="{MULDE_SIDE:.4f}" rx="{MULDE_CORNER_R:.4f}" ry="{MULDE_CORNER_R:.4f}"/>'
+            )
     lines.append("  </g>")
     lines.append('  <g id="koordinaten" font-family="system-ui,Segoe UI,sans-serif" font-weight="800" '
                  f'font-size="{min(h, c) * 0.52:.2f}" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">')
@@ -105,11 +140,14 @@ def write_dxf(path: Path, c: float, h: float, gap: float, out: float) -> None:
         )
 
     def add_text(x: float, y: float, hgt: float, txt: str) -> None:
-        # TEXT: Minimal R12
+        # TEXT: zentriert (72/73) für bessere DXF-Positionierung
         entities.extend(
             [
                 "0\nTEXT\n8\n0",
-                f"10\n{x:.6f}\n20\n{y:.6f}\n40\n{hgt:.6f}\n1\n{txt}",
+                (
+                    f"10\n{x:.6f}\n20\n{y:.6f}\n11\n{x:.6f}\n21\n{y:.6f}\n"
+                    f"40\n{hgt:.6f}\n1\n{txt}\n72\n1\n73\n2"
+                ),
             ]
         )
 
@@ -119,7 +157,8 @@ def write_dxf(path: Path, c: float, h: float, gap: float, out: float) -> None:
     for iy in range(6):
         for ix in range(6):
             xc, y_up = centers_play(ix, iy, c, h, gap)
-            add_circle(xc, y_up, MULDE_R)
+            pts = rounded_rect_points(xc, y_up, MULDE_SIDE, MULDE_SIDE, MULDE_CORNER_R, arc_steps=5)
+            add_polyline_closed(pts)
 
     th = min(h, c) * 0.48
     for ix in range(6):
@@ -143,10 +182,13 @@ def main() -> None:
     root = Path(__file__).resolve().parent.parent
     c, h, gap, out = layout()
     assert abs(h + 6 * c + 6 * gap - out) < 1e-6, (h, c, gap, out)
-    assert MULDE_D <= c - 0.25, "Mulde passt nicht in Zelle – GAP oder HEADER_RATIO anpassen"
+    assert MULDE_SIDE <= c - 0.25, "Mulde passt nicht in Zelle – GAP oder HEADER_RATIO anpassen"
     write_svg(root / "board.svg", c, h, gap, out)
     write_dxf(root / "board.dxf", c, h, gap, out)
-    print(f"c={c:.3f} mm, h={h:.3f} mm, gap={gap} mm, mulde_d={MULDE_D} mm -> board.svg, board.dxf")
+    print(
+        f"c={c:.3f} mm, h={h:.3f} mm, gap={gap} mm, "
+        f"mulde_side={MULDE_SIDE} mm, corner_r={MULDE_CORNER_R} mm -> board.svg, board.dxf"
+    )
 
 
 if __name__ == "__main__":
