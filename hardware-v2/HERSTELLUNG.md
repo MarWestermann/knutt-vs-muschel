@@ -23,7 +23,8 @@ Ergebnis: [board.svg](board.svg), [board.dxf](board.dxf). Maße und Parameter: [
 
 ### Koordinaten (1–6 oben + links)
 
-- Standardweg: `gcode/numbers_engrave.ngc` aus dem Script nutzen (einliniger Segment-Font).
+- Ausführliche FreeCAD-Anleitung: **[FREECAD_ZAHLEN_GRAVUR.md](FREECAD_ZAHLEN_GRAVUR.md)** (Path + ShapeString, Alternativen).
+- Schnellweg: `gcode/numbers_engrave.ngc` aus dem Script nutzen (einliniger Segment-Font).
 - Alternative: SVG enthält **`<text>`**. Viele Postprozessor brauchen **Pfade**:
   - **Inkscape**: Text markieren → **Pfad → Objekt in Pfad umwandeln** → als DXF/SVG erneut exportieren **oder** in CAM nur die Pfade-Gruppe importieren.
 - Werkzeug: **Gravierstichel** / schmales **V-Bit**, **sehr flache** Zustellung, Linien **einmal** ohne Überfräsung probieren.
